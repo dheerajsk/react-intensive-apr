@@ -15,6 +15,9 @@ export function SignUp() {
     console.log(user)
     fetch('http://localhost:4100/api/auth/register', {
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify(user),
     })
       // here we receive
