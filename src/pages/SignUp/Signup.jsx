@@ -13,6 +13,18 @@ export function SignUp() {
 
   function handleSignUp() {
     console.log(user)
+    fetch('http://localhost:4100/api/auth/register', {
+      method: 'POST',
+      body: JSON.stringify(user),
+    })
+      // here we receive
+      .then((response) => {
+        // products = jsonResponse
+        console.log('user is created')
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }
 
   return (

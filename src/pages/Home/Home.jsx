@@ -13,7 +13,9 @@ export function Home() {
   // chain of promises.
 
   useEffect(() => {
-    fetch('http://localhost:4100/api/products')
+    fetch('http://localhost:4100/api/products', {
+      method: 'GET',
+    })
       // here we receive
       .then((response) => response.json())
       .then((jsonResponse) => {
