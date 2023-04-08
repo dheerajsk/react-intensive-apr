@@ -1,22 +1,18 @@
 import './ProductCard.css'
 
-export function ProductCard() {
-  var rating = 4
+export function ProductCard({ item }) {
+  var rating = Math.floor(item.rating.rate)
   var ratings = Array(rating).fill(0)
 
   return (
     <div className="card">
-      <h5 className="card-title">New Bag</h5>
+      <h5 className="card-title">{item.title}</h5>
       <hr></hr>
-      <img
-        src="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"
-        className="card-img-top"
-        alt="..."
-      ></img>
+      <img src={item.image} className="card-img-top" alt="..."></img>
       <div className="card-body">
-        <p className="card-text">Some q bulk of the card's content.</p>
+        <p className="card-text">{item.description}</p>
         <span>
-          <b>MRP:</b> &#8377;500
+          <b>MRP:</b> &#8377;{item.price}
         </span>
         <hr></hr>
 
