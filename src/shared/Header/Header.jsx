@@ -13,6 +13,12 @@ export function Header() {
     }
   }, [])
 
+  const cartItems = localStorage.getItem('cartItems')
+
+  if (cartItems) {
+    var cartItemsLength = JSON.parse(cartItems).length
+  }
+
   const navigate = useNavigate()
 
   return (
@@ -43,7 +49,9 @@ export function Header() {
             <div>
               <button className="btn btn-info">
                 Cart&nbsp;
-                <span class="badge bg-secondary">4</span>
+                {cartItemsLength && (
+                  <span class="badge bg-secondary">{cartItemsLength}</span>
+                )}
               </button>
               &nbsp;&nbsp;
               <button
