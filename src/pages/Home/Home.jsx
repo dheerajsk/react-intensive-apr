@@ -7,7 +7,7 @@ export function Home() {
   // State. => Just like a varibale.
   const [products, setProducts] = useState([])
   const [buttonClick, setButtonClick] = useState(0)
-  const [cartItemsCount, setCartItemsCount] = useState(0)
+  const [cartItemsCount, setCartItemsCount] = useState(0) // 1
 
   function getCartItemsCount(count) {
     setCartItemsCount(count)
