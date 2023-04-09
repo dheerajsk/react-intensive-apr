@@ -7,6 +7,12 @@ export function Home() {
   // State. => Just like a varibale.
   const [products, setProducts] = useState([])
   const [buttonClick, setButtonClick] = useState(0)
+  const [cartItemsCount, setCartItemsCount] = useState(0)
+
+  function getCartItemsCount(count) {
+    setCartItemsCount(count)
+    console.log(count)
+  }
 
   // 1. Call api and get all data.
   // Asynchoronous call.
@@ -30,7 +36,7 @@ export function Home() {
 
   return (
     <div>
-      <Header />
+      <Header cartItemsCount={cartItemsCount} />
       {/* <button
         onClick={() => {
           setButtonClick(buttonClick + 1)
@@ -42,7 +48,11 @@ export function Home() {
       <div className="product-container">
         {products &&
           products.map((product) => (
-            <ProductCard key={product.id} item={product} />
+            <ProductCard
+              notifyAboutCartChanges={getCartItemsCount}
+              key={product.id}
+              item={product}
+            />
           ))}
       </div>
     </div>

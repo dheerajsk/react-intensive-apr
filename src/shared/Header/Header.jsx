@@ -2,8 +2,9 @@ import { useNavigate } from 'react-router-dom'
 import './Header.css'
 import { useEffect, useState } from 'react'
 
-export function Header() {
+export function Header({ cartItemsCount }) {
   const [isLoggedIn, setLoggedInStatus] = useState(false)
+  const [cartItemsLength, setCartItemsLength] = useState(0)
   // get data from localStorage.
 
   useEffect(() => {
@@ -13,11 +14,13 @@ export function Header() {
     }
   }, [])
 
-  const cartItems = localStorage.getItem('cartItems')
-
-  if (cartItems) {
-    var cartItemsLength = JSON.parse(cartItems).length
-  }
+  useEffect(() => {
+    const cartItems = localStorage.getItem('cartItems')
+    if (cartItems) {
+      var cartItemsLength = JSON.parse(cartItems).length
+      setCartItemsLength(cartItemsLength)
+    }
+  }, [cartItemsCount])
 
   const navigate = useNavigate()
 
@@ -49,7 +52,7 @@ export function Header() {
             <div>
               <button className="btn btn-info">
                 Cart&nbsp;
-                {cartItemsLength && (
+                {cartItemsLength > 0 && (
                   <span class="badge bg-secondary">{cartItemsLength}</span>
                 )}
               </button>

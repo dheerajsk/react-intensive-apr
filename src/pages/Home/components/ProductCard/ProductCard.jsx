@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import './ProductCard.css'
 
-export function ProductCard({ item }) {
+export function ProductCard({ item, notifyAboutCartChanges }) {
   const [isLoggedIn, setLoggedInStatus] = useState(false)
   // get data from localStorage.
 
@@ -41,6 +41,7 @@ export function ProductCard({ item }) {
     }
 
     localStorage.setItem('cartItems', JSON.stringify(arrayOfItems))
+    notifyAboutCartChanges(arrayOfItems.length)
   }
 
   return (
