@@ -1,8 +1,47 @@
+import { useState, useEffect } from 'react'
 import './ProductCard.css'
 
 export function ProductCard({ item }) {
+  const [isLoggedIn, setLoggedInStatus] = useState(false)
+  // get data from localStorage.
+
+  useEffect(() => {
+    const userDetails = localStorage.getItem('userDetails')
+    if (userDetails) {
+      setLoggedInStatus(true)
+    }
+  }, [])
+
   var rating = Math.floor(item.rating.rate)
   var ratings = Array(rating).fill(0)
+
+  function handleAddToCartClick() {
+    // if cart already exists
+    const cartItems = localStorage.getItem('cartItems')
+
+    if (!cartItems) {
+      var arrayOfItems = []
+    } else {
+      var arrayOfItems = JSON.parse(cartItems)
+    }
+    // add the product to cart.
+    const cartItem = {
+      product: item,
+      quantity: 1,
+    }
+    const itemAreadyExistsIndex = arrayOfItems.findIndex(
+      (i) => i.product.id == item.id,
+    )
+    // if product already added to cart, increase the quantity.
+    // if product exists (index!=-1)
+    if (itemAreadyExistsIndex != -1) {
+      arrayOfItems[itemAreadyExistsIndex].quantity += 1
+    } else {
+      arrayOfItems.push(cartItem)
+    }
+
+    localStorage.setItem('cartItems', JSON.stringify(arrayOfItems))
+  }
 
   return (
     <div className="card">
@@ -32,9 +71,11 @@ export function ProductCard({ item }) {
             ))}
           </div>
 
-          <a href="#" className="btn btn-success">
-            Add to Cart
-          </a>
+          {isLoggedIn && (
+            <button onClick={handleAddToCartClick} className="btn btn-success">
+              Add to Cart
+            </button>
+          )}
         </div>
       </div>
     </div>

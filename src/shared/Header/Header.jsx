@@ -40,15 +40,22 @@ export function Header() {
           )}
 
           {isLoggedIn && (
-            <button
-              onClick={() => {
-                localStorage.removeItem('userDetails')
-                navigate('login')
-              }}
-              className="btn btn-warning"
-            >
-              Logout
-            </button>
+            <div>
+              <button className="btn btn-info">
+                Cart&nbsp;
+                <span class="badge bg-secondary">4</span>
+              </button>
+              &nbsp;&nbsp;
+              <button
+                onClick={() => {
+                  localStorage.removeItem('userDetails')
+                  navigate('login')
+                }}
+                className="btn btn-warning"
+              >
+                Logout
+              </button>
+            </div>
           )}
         </div>
       </div>
