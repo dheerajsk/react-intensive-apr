@@ -1,18 +1,57 @@
+import { useNavigate } from 'react-router-dom'
+import './Header.css'
+import { useEffect, useState } from 'react'
 
-import "./Header.css";
+export function Header() {
+  const [isLoggedIn, setLoggedInStatus] = useState(false)
+  // get data from localStorage.
 
-export function Header(){
+  useEffect(() => {
+    const userDetails = localStorage.getItem('userDetails')
+    if (userDetails) {
+      setLoggedInStatus(true)
+    }
+  }, [])
 
-    return(
-        <nav className="navbar bg-dark" data-bs-theme="dark">
-  <div className="container-fluid">
-    <a id="anchor" className="navbar-brand">M-Cart</a>
-    <div className="btn_container">
-    <button className="btn btn-warning">Register</button>
-    <button className="btn btn-warning">Login</button>
-    </div>
-    
-  </div>
-</nav>
-    )
+  const navigate = useNavigate()
+
+  return (
+    <nav className="navbar bg-dark" data-bs-theme="dark">
+      <div className="container-fluid">
+        <a id="anchor" className="navbar-brand">
+          M-Cart
+        </a>
+        <div className="btn_container">
+          {!isLoggedIn && (
+            <div>
+              <a href="/register" className="btn btn-warning">
+                Register
+              </a>
+              &nbsp; &nbsp;
+              <button
+                onClick={() => {
+                  navigate('login')
+                }}
+                className="btn btn-warning"
+              >
+                Login
+              </button>
+            </div>
+          )}
+
+          {isLoggedIn && (
+            <button
+              onClick={() => {
+                localStorage.removeItem('userDetails')
+                navigate('login')
+              }}
+              className="btn btn-warning"
+            >
+              Logout
+            </button>
+          )}
+        </div>
+      </div>
+    </nav>
+  )
 }

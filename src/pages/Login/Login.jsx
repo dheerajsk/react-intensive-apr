@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import './Login.css'
+import { useNavigate } from 'react-router-dom'
 
 // Name
 // Email
@@ -7,6 +8,8 @@ import './Login.css'
 
 export function Login() {
   const [user, setUser] = useState({ email: '', password: '' })
+  const [hasError, setError] = useState(false)
+  const navigate = useNavigate()
   // bind/linking this user with individual fields of form.
   // From JS=> HTML
   // HTML=> JS ?
@@ -22,12 +25,20 @@ export function Login() {
     })
       // here we receive
       .then((response) => {
+        if (response.status == 400) {
+          setError(true)
+        } else {
+          setError(false)
+        }
         return response.json()
       })
       .then((jsonResponse) => {
         console.log(jsonResponse)
+        localStorage.setItem('userDetails', JSON.stringify(jsonResponse))
+        navigate('/')
       })
       .catch((err) => {
+        console.log('Error occurred')
         console.log(err)
       })
   }
@@ -40,6 +51,13 @@ export function Login() {
         <div className="col-md-6">
           <h3>Please login to get started.</h3>
           <hr></hr>
+
+          {hasError && (
+            <div class="alert alert-danger" role="alert">
+              Invalid Credentials
+            </div>
+          )}
+
           <form className="signupform">
             <div class="mb-3">
               <label for="email" class="form-label">
@@ -72,6 +90,7 @@ export function Login() {
               ></input>
             </div>
             <button
+              type="button"
               onClick={handleSignIn}
               className="btn btn-success float-end"
             >

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import './Signup.css'
+import { useNavigate } from 'react-router-dom'
 
 // Name
 // Email
@@ -7,6 +8,8 @@ import './Signup.css'
 
 export function SignUp() {
   const [user, setUser] = useState({ name: '', email: '', password: '' })
+
+  const navigate = useNavigate()
   // bind/linking this user with individual fields of form.
   // From JS=> HTML
   // HTML=> JS ?
@@ -24,6 +27,7 @@ export function SignUp() {
       .then((response) => {
         // products = jsonResponse
         console.log('user is created')
+        navigate('/login')
       })
       .catch((err) => {
         console.log(err)
@@ -86,6 +90,7 @@ export function SignUp() {
             </div>
             <button
               onClick={handleSignUp}
+              type="button"
               className="btn btn-success float-end"
             >
               Signup{' '}
