@@ -6,17 +6,15 @@ import { cartSelector } from '../../store/slices/cartSlices'
 
 export function Header() {
   const [isLoggedIn, setLoggedInStatus] = useState(false)
-  const [cartItemsLength, setCartItemsLength] = useState(0)
+
   // get data from localStorage.
 
-  const lengthOfCartitems = useSelector(cartSelector)
-  console.log(lengthOfCartitems)
+  const cartItemsLength = useSelector(cartSelector)
   useEffect(() => {
     const userDetails = localStorage.getItem('userDetails')
     if (userDetails) {
       setLoggedInStatus(true)
     }
-    setCartItemsLength(lengthOfCartitems)
   }, [])
 
   // To get the latest data from store.

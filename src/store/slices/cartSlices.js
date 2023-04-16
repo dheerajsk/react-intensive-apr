@@ -17,6 +17,10 @@ const counterSlice = createSlice({
         removeItem:(state,action)=>{
             // modofication of store's state.
             // state.cartItems.push(action.payload);
+        },
+        increaseQty:(state, action)=>{
+            const index = state.cartItems.indexOf(action.payload)
+            state.cartItems[index].qty++;
         }
     }
 });
