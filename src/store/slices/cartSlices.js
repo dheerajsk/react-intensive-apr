@@ -23,3 +23,4 @@ const counterSlice = createSlice({
 
 export default counterSlice.reducer;
 export const {addItem, removeItem} =  counterSlice.actions;
+export const cartSelector = (state)=> state.cartItems.length;

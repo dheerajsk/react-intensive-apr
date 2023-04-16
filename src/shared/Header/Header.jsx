@@ -1,26 +1,33 @@
 import { useNavigate } from 'react-router-dom'
 import './Header.css'
 import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { cartSelector } from '../../store/slices/cartSlices'
 
-export function Header({ cartItemsCount }) {
+export function Header() {
   const [isLoggedIn, setLoggedInStatus] = useState(false)
   const [cartItemsLength, setCartItemsLength] = useState(0)
   // get data from localStorage.
 
+  const lengthOfCartitems = useSelector(cartSelector)
+  console.log(lengthOfCartitems)
   useEffect(() => {
     const userDetails = localStorage.getItem('userDetails')
     if (userDetails) {
       setLoggedInStatus(true)
     }
+    setCartItemsLength(lengthOfCartitems)
   }, [])
 
-  useEffect(() => {
-    const cartItems = localStorage.getItem('cartItems')
-    if (cartItems) {
-      var cartItemsLength = JSON.parse(cartItems).length
-      setCartItemsLength(cartItemsLength)
-    }
-  }, [cartItemsCount])
+  // To get the latest data from store.
+
+  // useEffect(() => {
+  //   const cartItems = localStorage.getItem('cartItems')
+  //   if (cartItems) {
+  //     var cartItemsLength = JSON.parse(cartItems).length
+  //     setCartItemsLength(cartItemsLength)
+  //   }
+  // }, [cartItemsCount])
 
   const navigate = useNavigate()
 
