@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 import './ProductCard.css'
+import { useDispatch } from 'react-redux'
+import { addItem } from '../../../../store/slices/cartSlices'
 
 export function ProductCard({ item, notifyAboutCartChanges }) {
   const [isLoggedIn, setLoggedInStatus] = useState(false)
@@ -14,34 +16,35 @@ export function ProductCard({ item, notifyAboutCartChanges }) {
 
   var rating = Math.floor(item.rating.rate)
   var ratings = Array(rating).fill(0)
+  const dispatch = useDispatch()
 
   function handleAddToCartClick() {
-    // if cart already exists
-    const cartItems = localStorage.getItem('cartItems')
+    dispatch(addItem(item))
 
-    if (!cartItems) {
-      var arrayOfItems = []
-    } else {
-      var arrayOfItems = JSON.parse(cartItems)
-    }
-    // add the product to cart.
-    const cartItem = {
-      product: item,
-      quantity: 1,
-    }
-    const itemAreadyExistsIndex = arrayOfItems.findIndex(
-      (i) => i.product.id == item.id,
-    )
-    // if product already added to cart, increase the quantity.
-    // if product exists (index!=-1)
-    if (itemAreadyExistsIndex != -1) {
-      arrayOfItems[itemAreadyExistsIndex].quantity += 1
-    } else {
-      arrayOfItems.push(cartItem)
-    }
-
-    localStorage.setItem('cartItems', JSON.stringify(arrayOfItems))
-    notifyAboutCartChanges(arrayOfItems.length)
+    // // if cart already exists
+    // const cartItems = localStorage.getItem('cartItems')
+    // if (!cartItems) {
+    //   var arrayOfItems = []
+    // } else {
+    //   var arrayOfItems = JSON.parse(cartItems)
+    // }
+    // // add the product to cart.
+    // const cartItem = {
+    //   product: item,
+    //   quantity: 1,
+    // }
+    // const itemAreadyExistsIndex = arrayOfItems.findIndex(
+    //   (i) => i.product.id == item.id,
+    // )
+    // // if product already added to cart, increase the quantity.
+    // // if product exists (index!=-1)
+    // if (itemAreadyExistsIndex != -1) {
+    //   arrayOfItems[itemAreadyExistsIndex].quantity += 1
+    // } else {
+    //   arrayOfItems.push(cartItem)
+    // }
+    // localStorage.setItem('cartItems', JSON.stringify(arrayOfItems))
+    // notifyAboutCartChanges(arrayOfItems.length)
   }
 
   return (
