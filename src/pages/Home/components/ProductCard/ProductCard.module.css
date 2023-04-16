@@ -10,7 +10,11 @@ svg{
     color: gold;
 }
 
-.card-bottom{
+.cardBottom{
     display: flex;
     justify-content: space-between;
+}
+
+.btnColor{
+    background-color: forestgreen !important;
 }

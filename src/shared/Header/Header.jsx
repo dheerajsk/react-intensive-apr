@@ -55,7 +55,7 @@ export function Header() {
 
           {isLoggedIn && (
             <div>
-              <button className="btn btn-info">
+              <button className="btn btn-info btn-color">
                 Cart&nbsp;
                 {cartItemsLength > 0 && (
                   <span class="badge bg-secondary">{cartItemsLength}</span>

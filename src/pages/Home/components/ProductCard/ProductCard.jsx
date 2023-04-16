@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import './ProductCard.css'
+import styles from './ProductCard.module.css'
 import { useDispatch } from 'react-redux'
 import { addItem } from '../../../../store/slices/cartSlices'
 
@@ -48,7 +48,7 @@ export function ProductCard({ item, notifyAboutCartChanges }) {
   }
 
   return (
-    <div className="card">
+    <div className={styles.card}>
       <h5 className="card-title">{item.title}</h5>
       <hr></hr>
       <img src={item.image} className="card-img-top" alt="..."></img>
@@ -59,7 +59,7 @@ export function ProductCard({ item, notifyAboutCartChanges }) {
         </span>
         <hr></hr>
 
-        <div className="card-bottom">
+        <div className={styles.cardBottom}>
           <div>
             {ratings.map((r) => (
               <svg
@@ -76,7 +76,10 @@ export function ProductCard({ item, notifyAboutCartChanges }) {
           </div>
 
           {isLoggedIn && (
-            <button onClick={handleAddToCartClick} className="btn btn-success">
+            <button
+              onClick={handleAddToCartClick}
+              className={'btn ' + ' btn-info ' + styles.btnColor}
+            >
               Add to Cart
             </button>
           )}

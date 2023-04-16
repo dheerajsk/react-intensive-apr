@@ -4,3 +4,7 @@
     width: 200px;
     justify-content: space-around;
 }
+
+.btn-color{
+    background-color: orange;
+}
